@@ -1,16 +1,15 @@
-
 import React from 'react';
 
 const loadingMessages = [
-    "Initializing AI Bot...",
-    "Analyzing target URL...",
-    "Scanning for potential projects...",
-    "Extracting project websites...",
-    "Scraping detailed information...",
-    "Compiling social media links...",
-    "Searching for contact details...",
-    "Formatting data for presentation...",
-    "Almost there, finalizing results...",
+    "Initializing Strategic AI Bot...",
+    "Analyzing weekly prospecting theme...",
+    "Consulting real-time project launch calendars...",
+    "Cross-referencing with current date for relevance...",
+    "Identifying early-stage projects and launch signals...",
+    "Enriching data with social and contact information...",
+    "Verifying project activity and sources...",
+    "Compiling final list of strategic prospects...",
+    "Almost there, preparing the data grid...",
 ];
 
 export const Loader: React.FC = () => {

@@ -42,7 +42,8 @@ const App: React.FC = () => {
     setCurrentTheme(theme);
 
     try {
-      const data = await fetchProjectData(theme, apiKey);
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+      const data = await fetchProjectData(theme, apiKey, today);
       setProjects(data);
     } catch (err) {
       console.error(err);

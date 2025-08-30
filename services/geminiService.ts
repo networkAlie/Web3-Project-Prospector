@@ -24,22 +24,23 @@ const projectSchema = {
   required: ["projectName", "websiteUrl", "shortDescription", "ecosystem", "source"],
 };
 
-export async function fetchProjectData(theme: string, apiKey: string): Promise<Project[]> {
+export async function fetchProjectData(theme: string, apiKey: string, currentDate: string): Promise<Project[]> {
   if (!apiKey) {
     throw new Error("Gemini API key is required.");
   }
   const ai = new GoogleGenAI({ apiKey });
 
-  // FIX: Replaced nested backticks with single quotes in the prompt string to fix parsing errors.
   const prompt = `
     You are a senior data engineer specializing in Web3 ecosystems. Your mission is to use your vast knowledge of the web to build a high-volume, strategically filtered list of real-world potential clients for the Alie Network growth agency. The focus is on finding projects that are ideal for their "LAUNCHPAD" service package.
+
+    IMPORTANT CONTEXT: Today's date is ${currentDate}. All requests for "upcoming", "recent", or "new" projects must be interpreted relative to this date to ensure the data is timely and relevant.
 
     This week's theme is: "${theme}"
 
     Your task is to act as an automated data collection bot and perform the following multi-source strategy:
     1.  **Deconstruct the Theme:** Understand the core request. Is it an ecosystem, a category, a stage (e.g., "upcoming"), or a combination?
     2.  **Gather Real Data From Your Knowledge Base:**
-        *   **Launchpad & IDO Sites:** Search your knowledge derived from real sites like CryptoRank and ICO Drops to find projects in their "upcoming" or "active" sale phases. This is the primary target.
+        *   **Launchpad & IDO Sites:** Search your knowledge derived from real sites like CryptoRank and ICO Drops to find projects in their "upcoming" or "active" sale phases, relative to today's date. This is the primary target.
         *   **Ecosystem Directories:** Access your knowledge from ecosystem-specific sites like DeFiLlama to find newly listed or smaller, promising projects.
         *   **Broad Databases:** Use your knowledge from platforms like CoinGecko to find projects matching the theme, but filter for those that are still early-stage.
     3.  **Data Enrichment and Vetting (For each real project found):**
