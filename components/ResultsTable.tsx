@@ -5,10 +5,10 @@ import { TwitterIcon, TelegramIcon, DiscordIcon, GithubIcon, DocsIcon, ExternalL
 
 interface ResultsTableProps {
   projects: Project[];
-  sourceTheme: string;
+  sourceUrl: string;
 }
 
-const downloadCSV = (projects: Project[], theme: string) => {
+const downloadCSV = (projects: Project[], sourceUrl: string) => {
     const headers = [
         "Proje Adı", "Website URL", "Kısa Açıklama", "Ekosistem", "Twitter URL", "Telegram URL", "Discord URL", 
         "GitHub URL", "Son GitHub Aktivitesi", "Whitepaper/Docs URL", "İletişim E-postaları", 
@@ -50,23 +50,24 @@ const downloadCSV = (projects: Project[], theme: string) => {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    const safeThemeName = theme.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-    link.setAttribute("download", `prospects_${safeThemeName}_${today}.csv`);
+    // Create a safe filename from the source URL
+    const safeSourceName = sourceUrl.replace(/https?:\/\//, '').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    link.setAttribute("download", `prospects_${safeSourceName}_${today}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
 
-export const ResultsTable: React.FC<ResultsTableProps> = ({ projects, sourceTheme }) => {
+export const ResultsTable: React.FC<ResultsTableProps> = ({ projects, sourceUrl }) => {
   return (
     <div className="bg-gray-800/50 rounded-lg border border-gray-700 overflow-hidden">
       <div className="p-4 flex justify-between items-center border-b border-gray-700">
           <div>
-              <h3 className="text-lg font-semibold text-white">Prospecting Results</h3>
-              <p className="text-sm text-gray-400">Found {projects.length} projects for theme: "{sourceTheme}"</p>
+              <h3 className="text-lg font-semibold text-white">Scraping Results</h3>
+              <p className="text-sm text-gray-400 truncate max-w-md">Found {projects.length} projects from: "{sourceUrl}"</p>
           </div>
           <button 
-            onClick={() => downloadCSV(projects, sourceTheme)}
+            onClick={() => downloadCSV(projects, sourceUrl)}
             className="flex items-center px-4 py-2 bg-gray-600 text-white font-medium text-sm rounded-md hover:bg-gray-500 transition-colors"
           >
               <DownloadIcon className="h-4 w-4 mr-2" />
@@ -122,7 +123,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({ projects, sourceThem
                 <td className="px-6 py-4 text-gray-400 text-xs truncate max-w-sm" title={project.contactEmails || 'N/A'}>
                   {project.contactEmails || 'N/A'}
                 </td>
-                 <td className="px-6 py-4 whitespace-nowrap text-gray-400">{project.source}</td>
+                 <td className="px-6 py-4 whitespace-nowrap text-gray-400 truncate max-w-xs" title={project.source}>{project.source}</td>
                  <td className="px-6 py-4 whitespace-nowrap text-gray-400">{project.lastGithubActivity || 'N/A'}</td>
               </tr>
             ))}

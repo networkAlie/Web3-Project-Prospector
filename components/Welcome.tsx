@@ -5,9 +5,9 @@ import { TargetIcon, DatabaseIcon, MailIcon } from './icons';
 export const Welcome: React.FC = () => {
   return (
     <div className="text-center p-8 bg-gray-800/30 rounded-lg border border-dashed border-gray-600">
-      <h3 className="text-xl font-bold text-white mb-4">Welcome to the HUBS Strategic Data Collector</h3>
+      <h3 className="text-xl font-bold text-white mb-4">Welcome to the HUBS Live Data Scraper</h3>
       <p className="text-gray-400 max-w-3xl mx-auto mb-8">
-        This tool automates the core of the "Weekly Application and Growth System". It uses AI to find strategically-aligned projects based on your theme, gathers enriched data, and prepares it for outreach.
+        This tool uses AI to perform live web scraping on strategic sources. It finds real-time project data, enriches it, and prepares it for your outreach campaigns, eliminating manual data entry.
       </p>
       <div className="grid md:grid-cols-3 gap-8 text-left">
         <div className="flex items-start space-x-4">
@@ -15,8 +15,8 @@ export const Welcome: React.FC = () => {
             <TargetIcon className="h-6 w-6 text-cyan-400" />
           </div>
           <div>
-            <h4 className="font-semibold text-white">1. Define a Theme</h4>
-            <p className="text-sm text-gray-400">Enter a strategic query, like "Upcoming Solana IDOs" or "Base GameFi projects". The AI will begin its multi-source search.</p>
+            <h4 className="font-semibold text-white">1. Select a Source</h4>
+            <p className="text-sm text-gray-400">Choose a high-value target from the dropdown list, such as an ICO calendar or an ecosystem directory like DeFiLlama.</p>
           </div>
         </div>
         <div className="flex items-start space-x-4">
@@ -24,8 +24,8 @@ export const Welcome: React.FC = () => {
             <DatabaseIcon className="h-6 w-6 text-cyan-400" />
           </div>
           <div>
-            <h4 className="font-semibold text-white">2. Enrich Data</h4>
-            <p className="text-sm text-gray-400">The AI bot gathers crucial data, including social links, contacts, and vital "Launch Signals" indicating TGE or IDO plans.</p>
+            <h4 className="font-semibold text-white">2. Scrape & Enrich Data</h4>
+            <p className="text-sm text-gray-400">The AI bot will visit the selected URL in real-time and extract project details, social links, contacts, and launch signals.</p>
           </div>
         </div>
         <div className="flex items-start space-x-4">
@@ -34,7 +34,7 @@ export const Welcome: React.FC = () => {
           </div>
           <div>
             <h4 className="font-semibold text-white">3. Export & Outreach</h4>
-            <p className="text-sm text-gray-400">Export the strategically-sorted data as a CSV, perfectly formatted for the Mail Assistant AI.</p>
+            <p className="text-sm text-gray-400">Export the live, freshly collected data as a CSV, perfectly formatted for the Mail Assistant AI.</p>
           </div>
         </div>
       </div>
