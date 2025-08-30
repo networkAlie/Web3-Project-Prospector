@@ -5,15 +5,17 @@ import { Loader } from './components/Loader';
 import { fetchProjectDataFromUrl } from './services/geminiService';
 import { Project } from './types';
 import { Welcome } from './components/Welcome';
-import { KeyIcon, SearchIcon } from './components/icons';
+import { SearchIcon, KeyIcon } from './components/icons';
 
 interface Source {
   name: string;
   url: string;
 }
 
-// Tier 1 & 2 sources as defined by the user for strategic importance
+// Updated and re-ordered sources to prioritize finding upcoming projects, especially on Base.
 const strategicSources: Source[] = [
+  { name: 'Upcoming Base Projects (RootData)', url: 'https://www.rootdata.com/ecosystem/Base?tag=Upcoming' },
+  { name: 'Official Base Ecosystem', url: 'https://base.org/ecosystem' },
   { name: 'DeFiLlama / Base', url: 'https://defillama.com/chain/Base' },
   { name: 'ICO Drops / Upcoming', url: 'https://icodrops.com/upcoming-ico/' },
   { name: 'CryptoRank / Upcoming ICOs', url: 'https://cryptorank.io/upcoming-ico' },
@@ -28,26 +30,22 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedUrl, setSelectedUrl] = useState<string>(strategicSources[0].url);
   const [currentSourceUrl, setCurrentSourceUrl] = useState<string>('');
-  const [apiKey, setApiKey] = useState<string>('');
+  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('gemini-api-key') || '');
 
   useEffect(() => {
-    const storedApiKey = localStorage.getItem('geminiApiKey');
-    if (storedApiKey) {
-      setApiKey(storedApiKey);
+    if (apiKey) {
+      localStorage.setItem('gemini-api-key', apiKey);
+    } else {
+      localStorage.removeItem('gemini-api-key');
     }
-  }, []);
-
-  const handleApiKeyChange = (key: string) => {
-    setApiKey(key);
-    localStorage.setItem('geminiApiKey', key);
-  };
+  }, [apiKey]);
 
   const handleProspect = useCallback(async () => {
     if (!apiKey) {
-      setError('Please enter your Gemini LLM API Key to begin.');
+      setError('Please enter your Google Gemini API key to begin.');
       return;
     }
-     if (!selectedUrl) {
+    if (!selectedUrl) {
       setError('Please select a valid data source.');
       return;
     }
@@ -65,29 +63,30 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [apiKey, selectedUrl]);
+  }, [selectedUrl, apiKey]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
-           <div className="mb-8 p-4 bg-gray-800 border border-gray-700 rounded-lg max-w-4xl mx-auto">
-              <label htmlFor="apiKey" className="block text-sm font-medium text-gray-300 mb-2">
-                Enter Your Gemini LLM API Key
-              </label>
-              <div className="relative flex items-center">
-                <KeyIcon className="absolute left-3 h-5 w-5 text-gray-500" />
-                <input
-                  id="apiKey"
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => handleApiKeyChange(e.target.value)}
-                  placeholder="Paste your API key here to enable prospecting"
-                  className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none"
-                />
-              </div>
+          <div className="max-w-4xl mx-auto mb-8">
+            <label htmlFor="api-key-input" className="block text-sm font-medium text-gray-400 mb-2">
+              Google Gemini API Key
+            </label>
+            <div className="relative">
+              <KeyIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+              <input
+                id="api-key-input"
+                type="password"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                placeholder="Paste your API key here..."
+                className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all duration-200"
+              />
             </div>
+            {!apiKey && <p className="text-xs text-amber-400 mt-2">An API key is required to use the scraper bot.</p>}
+          </div>
 
           <h2 className="text-2xl font-bold text-center text-gray-200 mb-2">Live Web Scraper Bot</h2>
           <p className="text-center text-gray-400 mb-8">

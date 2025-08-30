@@ -1,7 +1,7 @@
 
 # Web3 Project Prospector
 
-An AI-powered lead generation tool designed exclusively for [Alie Network's](https://www.alie.network/) **HUBS (Weekly Execution & Growth System)** initiative. This application transforms the slow, manual process of finding potential clients into a rapid, automated, and strategic operation.
+An AI-powered lead generation tool designed exclusively for [Alie Network's](https://www.alienetwork.com/) **HUBS (Weekly Execution & Growth System)** initiative. This application transforms the slow, manual process of finding potential clients into a rapid, automated, and strategic operation.
 
 The Web3 Project Prospector uses the Google Gemini AI to act as a **live web scraper**, targeting high-value sources to find, enrich, and qualify Web3 projects that are ideal candidates for Alie Network's growth services, especially the "LAUNCHPAD" and "ECOSYSTEM GROWTH" packages.
 
@@ -78,11 +78,3 @@ As a pure client-side application, this project can be deployed with zero config
 -   AWS S3
 
 Simply upload the contents of the project folder (`index.html`, `index.tsx`, etc.) to your provider of choice.
-Email: info@alie.network
-Website: alie.network
-Linktree: linktr.ee/alienetwork
-X (Twitter): @networkAlie
-LinkedIn: linkedin.com/in/alienetwork
-GitHub: @networkAlie
-YouTube: @networkAlie
-Reddit: u/networkAlie
