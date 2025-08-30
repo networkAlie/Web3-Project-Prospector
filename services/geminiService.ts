@@ -32,25 +32,25 @@ export async function fetchProjectData(theme: string, apiKey: string): Promise<P
 
   // FIX: Replaced nested backticks with single quotes in the prompt string to fix parsing errors.
   const prompt = `
-    You are a senior Python data engineer specializing in Web3 ecosystems, API integrations, and advanced web scraping. Your mission is to build a high-volume, strategically filtered list of potential clients for the Alie Network growth agency. The focus is on finding projects that are ideal for their "LAUNCHPAD" service package.
+    You are a senior data engineer specializing in Web3 ecosystems. Your mission is to use your vast knowledge of the web to build a high-volume, strategically filtered list of real-world potential clients for the Alie Network growth agency. The focus is on finding projects that are ideal for their "LAUNCHPAD" service package.
 
     This week's theme is: "${theme}"
 
-    Your task is to act as an automated bot performing the following multi-source strategy:
+    Your task is to act as an automated data collection bot and perform the following multi-source strategy:
     1.  **Deconstruct the Theme:** Understand the core request. Is it an ecosystem, a category, a stage (e.g., "upcoming"), or a combination?
-    2.  **Simulate Multi-Source Data Gathering:**
-        *   **Launchpad & IDO Sites (e.g., CryptoRank, ICO Drops):** First, prioritize finding projects in their "upcoming" or "active" sale phases. This is the primary target.
-        *   **Ecosystem Directories (e.g., DeFiLlama):** For the specified ecosystem, find newly listed or smaller, promising projects that might not be on major trackers yet.
-        *   **Broad Databases (e.g., CoinGecko):** Use your knowledge of projects on platforms like CoinGecko to find projects matching the theme, but filter for those that are still early-stage.
-    3.  **Data Enrichment and Vetting (For each project found):**
-        *   Go to the project's official website.
-        *   **CRITICAL - Find Launch Signals:** Scour their recent announcements, blog, or Twitter feed for keywords like "TGE", "IDO", "Airdrop", "Public Sale", "Launching Soon", "Token Generation Event", "Fair Launch". If found, populate the 'launchSignal' field. This is a top priority.
-        *   **CRITICAL - Find Contact Emails:** Find corporate emails (e.g., 'info@', 'partnerships@', 'contact@'). This is essential.
+    2.  **Gather Real Data From Your Knowledge Base:**
+        *   **Launchpad & IDO Sites:** Search your knowledge derived from real sites like CryptoRank and ICO Drops to find projects in their "upcoming" or "active" sale phases. This is the primary target.
+        *   **Ecosystem Directories:** Access your knowledge from ecosystem-specific sites like DeFiLlama to find newly listed or smaller, promising projects.
+        *   **Broad Databases:** Use your knowledge from platforms like CoinGecko to find projects matching the theme, but filter for those that are still early-stage.
+    3.  **Data Enrichment and Vetting (For each real project found):**
+        *   Based on your knowledge of the project's official website and announcements:
+        *   **CRITICAL - Find Launch Signals:** Recall recent announcements, blog posts, or tweets containing keywords like "TGE", "IDO", "Airdrop", "Public Sale", "Launching Soon", "Token Generation Event", "Fair Launch". If found, populate the 'launchSignal' field. This is a top priority.
+        *   **CRITICAL - Find Contact Emails:** Recall corporate emails (e.g., 'info@', 'partnerships@', 'contact@'). This is essential.
         *   Gather all other required data points: Social links, docs, GitHub, etc.
-        *   **Check GitHub Activity:** Conceptually, check the main repository for the date of the last commit to gauge if the project is technically active.
+        *   **Check GitHub Activity:** Recall the date of the last commit to the project's main repository to gauge if the project is technically active.
 
     **Output Constraints:**
-    *   Return a minimum of 15 and up to 30 projects matching the theme.
+    *   Return a minimum of 15 and up to 30 real, verifiable projects matching the theme.
     *   Strongly prioritize projects where you can find a **Launch Signal** and **Contact Emails**.
     *   AVOID large, well-established, "blue-chip" projects. Focus on pre-launch, early-stage, and growth-phase projects.
     *   Your final output must be a JSON array of project objects, strictly adhering to the provided schema. Do not return anything else.
